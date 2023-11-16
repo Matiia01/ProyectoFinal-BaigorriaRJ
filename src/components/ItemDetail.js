@@ -1,12 +1,16 @@
 import React from 'react';
 import ItemCount from './ItemCount';
 
-function ItemDetail({ item }) {
+function ItemDetail({ item, addToCart }) {
   if (!item) {
     return <p>No se encontró ningún producto</p>;
   }
 
   const { nombre, precio, descripcion, imagen } = item;
+
+  const handleAddToCart = (count) => {
+    addToCart(item, count);
+  };
 
   return (
     <div>
@@ -16,7 +20,7 @@ function ItemDetail({ item }) {
       <img src={imagen} alt={nombre} />
 
       {/* Agrega el componente ItemCount aquí */}
-      <ItemCount stock={10} onAdd={(count) => console.log(`Añadir al carrito: ${count} unidades`)} />
+      <ItemCount stock={10} onAdd={handleAddToCart} />
     </div>
   );
 }

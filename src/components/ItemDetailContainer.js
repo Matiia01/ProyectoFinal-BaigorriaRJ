@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import products from '../data';
 
-function ItemDetailContainer() {
+function ItemDetailContainer({ addToCart }) {
   const { id } = useParams();
   const product = products.find((product) => product.id === parseInt(id));
 
@@ -12,10 +12,8 @@ function ItemDetailContainer() {
     return <div>Producto no encontrado</div>;
   }
 
-  const addToCart = () => {
-    // Agregar el producto al carrito con la cantidad seleccionada
-    // Puedes usar la función addToCart que definiste en App.js
-    // Debes pasar el producto y la cantidad al addToCart
+  const handleAddToCart = () => {
+    addToCart(product, quantity);
   };
 
   return (
@@ -32,7 +30,7 @@ function ItemDetailContainer() {
           <p className="card-text">Peso: {product.weight}</p>
           <p className="card-text">Colores: {product.color}</p>
           <div className="form-group">
-            <button onClick={addToCart} className="btn btn-primary">
+            <button onClick={handleAddToCart} className="btn btn-primary">
               Agregar al Carrito
             </button>
             <label htmlFor="quantity">Cantidad:</label>
