@@ -18,8 +18,10 @@ const ItemCount = ({ stock, onAdd }) => {
   };
 
   const handleAddToCart = () => {
-    onAdd(count);
+    // Parsea la cantidad a entero antes de llamar a onAdd
+    onAdd(parseInt(count, 10) || 1);
   };
+
 
   return (
     <div>

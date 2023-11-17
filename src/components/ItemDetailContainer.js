@@ -15,9 +15,11 @@ function ItemDetailContainer() {
   }
 
   const handleAddToCart = () => {
-    addItem(product, quantity);
+    // Parsea la cantidad a entero antes de agregar al carrito
+    addItem(product, parseInt(quantity, 10) || 1);
     console.log('Producto añadido al carrito:', product, 'Cantidad:', quantity);
   };
+
 
   return (
     <div className="container">
