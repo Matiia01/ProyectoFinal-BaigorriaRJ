@@ -1,8 +1,9 @@
+// Cart.js
 import React, { useEffect, useState } from 'react';
 import { useCart } from '../CartContext';
 
 function Cart() {
-  const { cartList, removeFromCart, clear } = useCart();
+  const { cartList, removeItem, clear } = useCart();
   const [isProcessing, setIsProcessing] = useState(false);
   const [totalPrice, setTotalPrice] = useState(0);
 
@@ -50,7 +51,7 @@ function Cart() {
                     <p className="card-text">Precio total: ${product.price * product.quantity}</p>
                     <button
                       className="btn btn-danger"
-                      onClick={() => removeFromCart(product.id)}
+                      onClick={() => removeItem(product.id)}
                     >
                       Eliminar
                     </button>

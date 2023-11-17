@@ -20,13 +20,11 @@ const CartContextProvider = ({ children }) => {
 
   const addItem = (product, quantity) => {
     if (isInCart(product.id)) {
-      // Si el producto ya está en el carrito, actualiza la cantidad
       const updatedCart = cartList.map((item) =>
         item.id === product.id ? { ...item, quantity: item.quantity + quantity } : item
       );
       setCartList(updatedCart);
     } else {
-      // Si el producto no está en el carrito, agrégalo
       setCartList([...cartList, { ...product, quantity }]);
     }
   };
