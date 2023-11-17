@@ -1,13 +1,8 @@
 import React from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import { Link } from 'react-router-dom';
-import { useCart } from '../CartContext';
 
-function CartWidget() {
-  const { cart } = useCart();
-
-  // Verifica si el carrito está definido y no está vacío antes de usar reduce
-  const cartCount = cart && Array.isArray(cart) ? cart.reduce((acc, item) => acc + item.quantity, 0) : 0;
-
+function CartWidget({ cartCount }) {
   return (
     <Link to="/cart" className="btn btn-primary">
       <i className="fa fa-shopping-cart"></i>

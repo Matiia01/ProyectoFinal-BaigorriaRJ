@@ -1,23 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { useCart } from '../CartContext';
 import products from '../data';
-import ItemCount from './ItemCount';
 
-const ItemDetailContainer = () => {
+function ItemDetailContainer({ addToCart }) {
   const { id } = useParams();
   const product = products.find((product) => product.id === parseInt(id));
 
-  const { dispatch } = useCart();
+  const [quantity, setQuantity] = useState(1);
 
-  const handleAddToCart = (product, quantity) => {
-    dispatch({
-      type: 'ADD_ITEM',
-      payload: {
-        item: product,
-        quantity: quantity,
-      },
-    });
+  if (!product) {
+    return <div>Producto no encontrado</div>;
+  }
+
+  const handleAddToCart = () => {
+    addToCart(product, quantity);
   };
 
   return (
@@ -33,11 +29,22 @@ const ItemDetailContainer = () => {
           <p className="card-text">Prestaciones: {product.brand}</p>
           <p className="card-text">Peso: {product.weight}</p>
           <p className="card-text">Colores: {product.color}</p>
-          <ItemCount stock={10} onAdd={(count) => handleAddToCart(product, count)} />
+          <div className="form-group">
+            <button onClick={handleAddToCart} className="btn btn-primary">
+              Agregar al Carrito
+            </button>
+            <label htmlFor="quantity">Cantidad:</label>
+            <input
+              type="number"
+              id="quantity"
+              value={quantity}
+              onChange={(e) => setQuantity(e.target.value)}
+            />
+          </div>
         </div>
       </div>
     </div>
   );
-};
+}
 
 export default ItemDetailContainer;
