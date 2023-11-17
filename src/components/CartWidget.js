@@ -1,4 +1,3 @@
-// Importa lo necesario
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useCart } from '../CartContext';

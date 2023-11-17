@@ -18,8 +18,6 @@ function ItemDetail({ item, addToCart }) {
       <p>Precio: {precio}</p>
       <p>{descripcion}</p>
       <img src={imagen} alt={nombre} />
-
-      {/* Agrega el componente ItemCount aquí */}
       <ItemCount stock={10} onAdd={handleAddToCart} />
     </div>
   );

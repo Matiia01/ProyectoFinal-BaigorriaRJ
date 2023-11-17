@@ -11,7 +11,6 @@ const cartReducer = (state, action) => {
   switch (action.type) {
     case 'ADD_ITEM':
       // Lógica para agregar un producto al carrito
-      // Asegúrate de que action.payload tenga la estructura correcta
       return {
         ...state,
         cart: [...state.cart, action.payload],
@@ -19,7 +18,6 @@ const cartReducer = (state, action) => {
 
     case 'REMOVE_ITEM':
       // Lógica para eliminar un producto del carrito
-      // Asegúrate de que action.payload tenga la estructura correcta
       return {
         ...state,
         cart: state.cart.filter(item => item.item.id !== action.payload.itemId),
