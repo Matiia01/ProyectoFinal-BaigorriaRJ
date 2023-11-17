@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { useCart } from '../CartContext'; // Importa el hook useCart
 import products from '../data';
 
-function ItemDetailContainer({ addToCart }) {
+function ItemDetailContainer() {
   const { id } = useParams();
+  const { addItem } = useCart();
   const product = products.find((product) => product.id === parseInt(id));
 
   const [quantity, setQuantity] = useState(1);
@@ -13,7 +15,8 @@ function ItemDetailContainer({ addToCart }) {
   }
 
   const handleAddToCart = () => {
-    addToCart(product, quantity);
+    addItem(product, quantity);
+    console.log('Producto añadido al carrito:', product, 'Cantidad:', quantity);
   };
 
   return (

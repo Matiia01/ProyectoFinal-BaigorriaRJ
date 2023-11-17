@@ -1,27 +1,42 @@
-// En Cart.js
 import React, { useEffect, useState } from 'react';
+import { useCart } from '../CartContext';
 
-function Cart({ cart, removeFromCart }) {
+function Cart() {
+  const { cartList, removeFromCart, clear } = useCart();
+  const [isProcessing, setIsProcessing] = useState(false);
   const [totalPrice, setTotalPrice] = useState(0);
 
   useEffect(() => {
-    // Calcula el precio total cada vez que cambia el carrito
     const calculateTotalPrice = () => {
-      const total = cart.reduce((total, product) => total + product.price * product.quantity, 0);
+      const total = cartList.reduce((total, product) => total + product.price * product.quantity, 0);
       setTotalPrice(total);
     };
 
     calculateTotalPrice();
-  }, [cart]);
+  }, [cartList]);
+
+  const handleConfirmPurchase = () => {
+    setIsProcessing(true);
+    // Simula un proceso de compra
+    setTimeout(() => {
+      setIsProcessing(false);
+      // Agrega lógica adicional después de la compra
+    }, 3000);
+  };
+
+  const handleEmptyCart = () => {
+    // Llama a la función clear para vaciar el carrito
+    clear();
+  };
 
   return (
     <div className="container">
       <h2>Carrito de Compras</h2>
-      {cart.length === 0 ? (
+      {cartList.length === 0 ? (
         <p>El carrito está vacío</p>
       ) : (
         <div>
-          {cart.map((product) => (
+          {cartList.map((product) => (
             <div key={product.id} className="card mb-3">
               <div className="row g-0">
                 <div className="col-md-4">
@@ -45,6 +60,19 @@ function Cart({ cart, removeFromCart }) {
             </div>
           ))}
           <p>Precio total del carrito: ${totalPrice}</p>
+
+          {/* Botón para confirmar compra */}
+          <button className="btn btn-success" onClick={handleConfirmPurchase} disabled={isProcessing}>
+            Confirmar Compra
+          </button>
+
+          {/* Botón para vaciar el carrito */}
+          <button className="btn btn-danger" onClick={handleEmptyCart} disabled={isProcessing}>
+            Vaciar Carrito
+          </button>
+
+          {/* Mensaje de compra en proceso */}
+          {isProcessing && <p>Tu compra está siendo procesada...</p>}
         </div>
       )}
     </div>
