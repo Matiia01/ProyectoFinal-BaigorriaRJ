@@ -18,7 +18,7 @@ const ItemCount = ({ stock, onAdd }) => {
   };
 
   const handleAddToCart = () => {
-    onAdd(count);
+    onAdd(Number(count)); // Asegurarse de que la cantidad sea un número
   };
 
   return (
